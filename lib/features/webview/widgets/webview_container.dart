@@ -24,7 +24,10 @@ class WebViewContainerState extends State<WebViewContainer> with AutomaticKeepAl
   final WebViewMonitor _monitor = WebViewMonitor();
   InAppWebViewKeepAlive? _keepAlive; // Keep WebView alive in background
   Timer? _refreshTimer; // Periodic refresh to ensure WebView stays active
-  
+
+  bool _isLoading = true;
+  String? _loadError; // Non-null when load failed (e.g. offline)
+
   void reload() {
     webViewController?.reload();
   }
@@ -70,9 +73,12 @@ class WebViewContainerState extends State<WebViewContainer> with AutomaticKeepAl
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    
+    final theme = Theme.of(context);
+
     return Scaffold(
-      body: InAppWebView(
+      body: Stack(
+        children: [
+          InAppWebView(
         keepAlive: _keepAlive, // CRITICAL: Keep WebView alive in background
         initialUrlRequest: URLRequest(url: WebUri(AppConstants.waUrl)),
         initialSettings: InAppWebViewSettings(
@@ -146,6 +152,7 @@ class WebViewContainerState extends State<WebViewContainer> with AutomaticKeepAl
           }
         },
         onLoadStop: (controller, url) async {
+            if (mounted) setState(() { _isLoading = false; _loadError = null; });
             try {
                 // Inject the title monitoring script ensuring it runs after load
                 await controller.evaluateJavascript(source: AppConstants.notificationMonitorScript);
@@ -193,18 +200,83 @@ class WebViewContainerState extends State<WebViewContainer> with AutomaticKeepAl
         },
         onReceivedError: (controller, request, error) {
             debugPrint("WebView[${widget.sessionId}]: Error loading ${request.url}: ${error.description}");
-            // Don't crash - just log the error
+            if (request.isForMainFrame == true && mounted) {
+              setState(() {
+                _loadError = error.description;
+                _isLoading = false;
+              });
+            }
         },
         onReceivedHttpError: (controller, request, response) {
             debugPrint("WebView[${widget.sessionId}]: HTTP error ${response.statusCode} for ${request.url}");
         },
-        // Monitor WebView state to ensure it stays active
         onProgressChanged: (controller, progress) {
-            // Log progress to verify WebView is active
             if (progress == 100) {
                 debugPrint("WebView[${widget.sessionId}]: Page fully loaded - WebView is active");
+                if (mounted) setState(() { _isLoading = false; _loadError = null; });
+            } else if (mounted && _loadError == null) {
+                setState(() => _isLoading = true);
             }
         },
+      ),
+          if (_isLoading && _loadError == null)
+            Container(
+              color: theme.scaffoldBackgroundColor,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Connecting…',
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          if (_loadError != null)
+            Container(
+              color: theme.scaffoldBackgroundColor,
+              padding: const EdgeInsets.all(24),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.wifi_off_rounded, size: 64, color: theme.colorScheme.outline),
+                    const SizedBox(height: 16),
+                    Text(
+                      'No connection',
+                      style: theme.textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      _loadError!,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 24),
+                    FilledButton.icon(
+                      onPressed: () {
+                        setState(() { _loadError = null; _isLoading = true; });
+                        webViewController?.reload();
+                      },
+                      icon: const Icon(Icons.refresh),
+                      label: const Text('Retry'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
