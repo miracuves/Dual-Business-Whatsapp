@@ -1,0 +1,268 @@
+> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy UP-TO-DATE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+WARNING: We recommend using a newer Android Gradle plugin to use compileSdk = 35
+
+This Android Gradle plugin (8.3.0) was tested up to compileSdk = 34.
+
+You are strongly encouraged to update your project to use a newer
+Android Gradle plugin that has been tested with compileSdk = 35.
+
+If you are already using the latest version of the Android Gradle plugin,
+you may need to wait until a newer version with support for compileSdk = 35 is available.
+
+To suppress this warning, add/update
+    android.suppressUnsupportedCompileSdk=35
+to this project's gradle.properties.
+> Task :app:buildKotlinToolingMetadata UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors
+> Task :app:compileFlutterBuildRelease UP-TO-DATE
+> Task :app:packJniLibsflutterBuildRelease UP-TO-DATE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :flutter_background_service_android:preBuild UP-TO-DATE
+> Task :flutter_background_service_android:preReleaseBuild UP-TO-DATE
+> Task :flutter_background_service_android:writeReleaseAarMetadata UP-TO-DATE
+> Task :flutter_inappwebview_android:preBuild UP-TO-DATE
+> Task :flutter_inappwebview_android:preReleaseBuild UP-TO-DATE
+> Task :flutter_inappwebview_android:writeReleaseAarMetadata UP-TO-DATE
+> Task :flutter_local_notifications:preBuild UP-TO-DATE
+> Task :flutter_local_notifications:preReleaseBuild UP-TO-DATE
+> Task :flutter_local_notifications:writeReleaseAarMetadata UP-TO-DATE
+> Task :flutter_native_splash:preBuild UP-TO-DATE
+> Task :flutter_native_splash:preReleaseBuild UP-TO-DATE
+> Task :flutter_native_splash:writeReleaseAarMetadata UP-TO-DATE
+> Task :permission_handler_android:preBuild UP-TO-DATE
+> Task :permission_handler_android:preReleaseBuild UP-TO-DATE
+> Task :permission_handler_android:writeReleaseAarMetadata UP-TO-DATE
+> Task :shared_preferences_android:preBuild UP-TO-DATE
+> Task :shared_preferences_android:preReleaseBuild UP-TO-DATE
+> Task :shared_preferences_android:writeReleaseAarMetadata UP-TO-DATE
+> Task :url_launcher_android:preBuild UP-TO-DATE
+> Task :url_launcher_android:preReleaseBuild UP-TO-DATE
+> Task :url_launcher_android:writeReleaseAarMetadata UP-TO-DATE
+> Task :app:checkReleaseAarMetadata UP-TO-DATE
+> Task :app:cleanMergeReleaseAssets
+> Task :app:mergeReleaseShaders UP-TO-DATE
+> Task :app:compileReleaseShaders NO-SOURCE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :flutter_background_service_android:mergeReleaseShaders UP-TO-DATE
+> Task :flutter_background_service_android:compileReleaseShaders NO-SOURCE
+> Task :flutter_background_service_android:generateReleaseAssets UP-TO-DATE
+> Task :flutter_background_service_android:packageReleaseAssets UP-TO-DATE
+> Task :flutter_inappwebview_android:mergeReleaseShaders UP-TO-DATE
+> Task :flutter_inappwebview_android:compileReleaseShaders NO-SOURCE
+> Task :flutter_inappwebview_android:generateReleaseAssets UP-TO-DATE
+> Task :flutter_inappwebview_android:packageReleaseAssets UP-TO-DATE
+> Task :flutter_local_notifications:mergeReleaseShaders UP-TO-DATE
+> Task :flutter_local_notifications:compileReleaseShaders NO-SOURCE
+> Task :flutter_local_notifications:generateReleaseAssets UP-TO-DATE
+> Task :flutter_local_notifications:packageReleaseAssets UP-TO-DATE
+> Task :flutter_native_splash:mergeReleaseShaders UP-TO-DATE
+> Task :flutter_native_splash:compileReleaseShaders NO-SOURCE
+> Task :flutter_native_splash:generateReleaseAssets UP-TO-DATE
+> Task :flutter_native_splash:packageReleaseAssets UP-TO-DATE
+> Task :permission_handler_android:mergeReleaseShaders UP-TO-DATE
+> Task :permission_handler_android:compileReleaseShaders NO-SOURCE
+> Task :permission_handler_android:generateReleaseAssets UP-TO-DATE
+> Task :permission_handler_android:packageReleaseAssets UP-TO-DATE
+> Task :shared_preferences_android:mergeReleaseShaders UP-TO-DATE
+> Task :shared_preferences_android:compileReleaseShaders NO-SOURCE
+> Task :shared_preferences_android:generateReleaseAssets UP-TO-DATE
+> Task :shared_preferences_android:packageReleaseAssets UP-TO-DATE
+> Task :url_launcher_android:mergeReleaseShaders UP-TO-DATE
+> Task :url_launcher_android:compileReleaseShaders NO-SOURCE
+> Task :url_launcher_android:generateReleaseAssets UP-TO-DATE
+> Task :url_launcher_android:packageReleaseAssets UP-TO-DATE
+> Task :app:mergeReleaseAssets
+> Task :app:copyFlutterAssetsRelease
+> Task :app:generateReleaseResValues UP-TO-DATE
+> Task :flutter_background_service_android:generateReleaseResValues UP-TO-DATE
+> Task :flutter_background_service_android:generateReleaseResources UP-TO-DATE
+> Task :flutter_background_service_android:packageReleaseResources UP-TO-DATE
+> Task :flutter_inappwebview_android:generateReleaseResValues UP-TO-DATE
+> Task :flutter_inappwebview_android:generateReleaseResources UP-TO-DATE
+> Task :flutter_inappwebview_android:packageReleaseResources UP-TO-DATE
+> Task :flutter_local_notifications:generateReleaseResValues UP-TO-DATE
+> Task :flutter_local_notifications:generateReleaseResources UP-TO-DATE
+> Task :flutter_local_notifications:packageReleaseResources UP-TO-DATE
+> Task :flutter_native_splash:generateReleaseResValues UP-TO-DATE
+> Task :flutter_native_splash:generateReleaseResources UP-TO-DATE
+> Task :flutter_native_splash:packageReleaseResources UP-TO-DATE
+> Task :permission_handler_android:generateReleaseResValues UP-TO-DATE
+> Task :permission_handler_android:generateReleaseResources UP-TO-DATE
+> Task :permission_handler_android:packageReleaseResources UP-TO-DATE
+> Task :shared_preferences_android:generateReleaseResValues UP-TO-DATE
+> Task :shared_preferences_android:generateReleaseResources UP-TO-DATE
+> Task :shared_preferences_android:packageReleaseResources UP-TO-DATE
+> Task :url_launcher_android:generateReleaseResValues UP-TO-DATE
+> Task :url_launcher_android:generateReleaseResources UP-TO-DATE
+> Task :url_launcher_android:packageReleaseResources UP-TO-DATE
+> Task :app:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :app:generateReleaseResources UP-TO-DATE
+> Task :app:mergeReleaseResources UP-TO-DATE
+> Task :app:packageReleaseResources UP-TO-DATE
+> Task :app:parseReleaseLocalResources UP-TO-DATE
+> Task :app:createReleaseCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksRelease UP-TO-DATE
+> Task :flutter_background_service_android:extractDeepLinksRelease UP-TO-DATE
+> Task :flutter_background_service_android:processReleaseManifest UP-TO-DATE
+> Task :flutter_inappwebview_android:extractDeepLinksRelease UP-TO-DATE
+> Task :flutter_inappwebview_android:processReleaseManifest UP-TO-DATE
+> Task :flutter_local_notifications:extractDeepLinksRelease UP-TO-DATE
+> Task :flutter_local_notifications:processReleaseManifest UP-TO-DATE
+> Task :flutter_native_splash:extractDeepLinksRelease UP-TO-DATE
+> Task :flutter_native_splash:processReleaseManifest UP-TO-DATE
+> Task :permission_handler_android:extractDeepLinksRelease UP-TO-DATE
+> Task :permission_handler_android:processReleaseManifest UP-TO-DATE
+> Task :shared_preferences_android:extractDeepLinksRelease UP-TO-DATE
+> Task :shared_preferences_android:processReleaseManifest UP-TO-DATE
+> Task :url_launcher_android:extractDeepLinksRelease UP-TO-DATE
+> Task :url_launcher_android:processReleaseManifest UP-TO-DATE
+> Task :app:processReleaseMainManifest UP-TO-DATE
+> Task :app:processReleaseManifest UP-TO-DATE
+> Task :app:processReleaseManifestForPackage UP-TO-DATE
+> Task :flutter_background_service_android:compileReleaseLibraryResources UP-TO-DATE
+> Task :flutter_background_service_android:parseReleaseLocalResources UP-TO-DATE
+> Task :flutter_background_service_android:generateReleaseRFile UP-TO-DATE
+> Task :flutter_inappwebview_android:compileReleaseLibraryResources UP-TO-DATE
+> Task :flutter_inappwebview_android:parseReleaseLocalResources UP-TO-DATE
+> Task :flutter_inappwebview_android:generateReleaseRFile UP-TO-DATE
+> Task :flutter_local_notifications:compileReleaseLibraryResources UP-TO-DATE
+> Task :flutter_local_notifications:parseReleaseLocalResources UP-TO-DATE
+> Task :flutter_local_notifications:generateReleaseRFile UP-TO-DATE
+> Task :flutter_native_splash:compileReleaseLibraryResources UP-TO-DATE
+> Task :flutter_native_splash:parseReleaseLocalResources UP-TO-DATE
+> Task :flutter_native_splash:generateReleaseRFile UP-TO-DATE
+> Task :permission_handler_android:compileReleaseLibraryResources UP-TO-DATE
+> Task :permission_handler_android:parseReleaseLocalResources UP-TO-DATE
+> Task :permission_handler_android:generateReleaseRFile UP-TO-DATE
+> Task :shared_preferences_android:compileReleaseLibraryResources UP-TO-DATE
+> Task :shared_preferences_android:parseReleaseLocalResources UP-TO-DATE
+> Task :shared_preferences_android:generateReleaseRFile UP-TO-DATE
+> Task :url_launcher_android:compileReleaseLibraryResources UP-TO-DATE
+> Task :url_launcher_android:parseReleaseLocalResources UP-TO-DATE
+> Task :url_launcher_android:generateReleaseRFile UP-TO-DATE
+> Task :app:processReleaseResources UP-TO-DATE
+> Task :flutter_background_service_android:javaPreCompileRelease UP-TO-DATE
+> Task :flutter_background_service_android:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :flutter_background_service_android:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :flutter_inappwebview_android:javaPreCompileRelease UP-TO-DATE
+> Task :flutter_inappwebview_android:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :flutter_inappwebview_android:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :flutter_local_notifications:javaPreCompileRelease UP-TO-DATE
+> Task :flutter_local_notifications:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :flutter_local_notifications:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :flutter_native_splash:javaPreCompileRelease UP-TO-DATE
+> Task :flutter_native_splash:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :flutter_native_splash:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :permission_handler_android:javaPreCompileRelease UP-TO-DATE
+> Task :permission_handler_android:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :permission_handler_android:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :shared_preferences_android:checkKotlinGradlePluginConfigurationErrors
+> Task :shared_preferences_android:compileReleaseKotlin UP-TO-DATE
+> Task :shared_preferences_android:javaPreCompileRelease UP-TO-DATE
+> Task :shared_preferences_android:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :shared_preferences_android:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :url_launcher_android:generateReleaseBuildConfig UP-TO-DATE
+> Task :url_launcher_android:javaPreCompileRelease UP-TO-DATE
+> Task :url_launcher_android:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :url_launcher_android:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :app:compileReleaseKotlin UP-TO-DATE
+> Task :app:javaPreCompileRelease UP-TO-DATE
+> Task :app:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :flutter_background_service_android:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :flutter_background_service_android:processReleaseJavaRes NO-SOURCE
+> Task :flutter_background_service_android:createFullJarRelease UP-TO-DATE
+> Task :flutter_background_service_android:extractProguardFiles UP-TO-DATE
+> Task :flutter_background_service_android:generateReleaseLintModel UP-TO-DATE
+> Task :flutter_background_service_android:prepareLintJarForPublish UP-TO-DATE
+> Task :flutter_inappwebview_android:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :flutter_inappwebview_android:processReleaseJavaRes NO-SOURCE
+> Task :flutter_inappwebview_android:createFullJarRelease UP-TO-DATE
+> Task :flutter_inappwebview_android:extractProguardFiles UP-TO-DATE
+> Task :flutter_inappwebview_android:generateReleaseLintModel UP-TO-DATE
+> Task :flutter_inappwebview_android:prepareLintJarForPublish UP-TO-DATE
+> Task :flutter_local_notifications:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :flutter_local_notifications:processReleaseJavaRes NO-SOURCE
+> Task :flutter_local_notifications:createFullJarRelease UP-TO-DATE
+> Task :flutter_local_notifications:extractProguardFiles UP-TO-DATE
+> Task :flutter_local_notifications:generateReleaseLintModel UP-TO-DATE
+> Task :flutter_local_notifications:prepareLintJarForPublish UP-TO-DATE
+> Task :flutter_native_splash:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :flutter_native_splash:processReleaseJavaRes NO-SOURCE
+> Task :flutter_native_splash:createFullJarRelease UP-TO-DATE
+> Task :flutter_native_splash:extractProguardFiles UP-TO-DATE
+> Task :flutter_native_splash:generateReleaseLintModel UP-TO-DATE
+> Task :flutter_native_splash:prepareLintJarForPublish UP-TO-DATE
+> Task :permission_handler_android:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :permission_handler_android:processReleaseJavaRes NO-SOURCE
+> Task :permission_handler_android:createFullJarRelease UP-TO-DATE
+> Task :permission_handler_android:extractProguardFiles UP-TO-DATE
+> Task :permission_handler_android:generateReleaseLintModel UP-TO-DATE
+> Task :permission_handler_android:prepareLintJarForPublish UP-TO-DATE
+> Task :shared_preferences_android:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :shared_preferences_android:processReleaseJavaRes UP-TO-DATE
+> Task :shared_preferences_android:createFullJarRelease UP-TO-DATE
+> Task :shared_preferences_android:extractProguardFiles UP-TO-DATE
+> Task :shared_preferences_android:generateReleaseLintModel UP-TO-DATE
+> Task :shared_preferences_android:prepareLintJarForPublish UP-TO-DATE
+> Task :url_launcher_android:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :url_launcher_android:processReleaseJavaRes NO-SOURCE
+> Task :url_launcher_android:createFullJarRelease UP-TO-DATE
+> Task :url_launcher_android:extractProguardFiles UP-TO-DATE
+> Task :url_launcher_android:generateReleaseLintModel UP-TO-DATE
+> Task :url_launcher_android:prepareLintJarForPublish UP-TO-DATE
+> Task :app:generateReleaseLintVitalReportModel UP-TO-DATE
+> Task :flutter_background_service_android:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :flutter_background_service_android:mergeReleaseNativeLibs NO-SOURCE
+> Task :flutter_background_service_android:stripReleaseDebugSymbols NO-SOURCE
+> Task :flutter_background_service_android:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :flutter_background_service_android:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :flutter_background_service_android:extractReleaseAnnotations UP-TO-DATE
+> Task :flutter_background_service_android:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :flutter_background_service_android:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :flutter_background_service_android:prepareReleaseArtProfile UP-TO-DATE
+> Task :flutter_background_service_android:mergeReleaseJavaResource UP-TO-DATE
+> Task :flutter_background_service_android:syncReleaseLibJars UP-TO-DATE
+> Task :flutter_background_service_android:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :flutter_inappwebview_android:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :flutter_inappwebview_android:mergeReleaseNativeLibs NO-SOURCE
+> Task :flutter_inappwebview_android:stripReleaseDebugSymbols NO-SOURCE
+> Task :flutter_inappwebview_android:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :flutter_inappwebview_android:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :flutter_inappwebview_android:extractReleaseAnnotations UP-TO-DATE
+> Task :flutter_inappwebview_android:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :flutter_inappwebview_android:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :flutter_inappwebview_android:prepareReleaseArtProfile UP-TO-DATE
+> Task :flutter_inappwebview_android:generateReleaseLibraryProguardRules UP-TO-DATE
+> Task :flutter_inappwebview_android:mergeReleaseJavaResource UP-TO-DATE
+> Task :flutter_inappwebview_android:minifyReleaseWithR8 SKIPPED
+> Task :flutter_inappwebview_android:syncReleaseLibJars FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+A problem was found with the configuration of task ':flutter_inappwebview_android:syncReleaseLibJars' (type 'LibraryAarJarsTask').
+  - In plugin 'com.android.internal.version-check' type 'com.android.build.gradle.internal.tasks.LibraryAarJarsTask' property 'javaResourcesJar' specifies file '/Volumes/Master DevX/Dev/dual whatsapp business app for android/build/flutter_inappwebview_android/intermediates/merged_java_res/release/minifyReleaseWithR8/feature-flutter_inappwebview_android.jar' which doesn't exist.
+    
+    Reason: An input file was expected to be present but it doesn't exist.
+    
+    Possible solutions:
+      1. Make sure the file exists before the task is called.
+      2. Make sure that the task which produces the file is declared as an input.
+    
+    For more information, please refer to https://docs.gradle.org/8.5/userguide/validation_problems.html#input_file_does_not_exist in the Gradle documentation.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 993ms
+187 actionable tasks: 6 executed, 181 up-to-date

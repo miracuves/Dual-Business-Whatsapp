@@ -1,0 +1,12 @@
+-keep class com.dualbiz.wa.** { *; }
+-keep class io.flutter.app.** { *; }
+-keep class io.flutter.plugin.** { *; }
+-keep class io.flutter.util.** { *; }
+-keep class io.flutter.view.** { *; }
+-keep class io.flutter.** { *; }
+-keep class io.flutter.plugins.** { *; }
+-keep class com.google.firebase.** { *; }
+-keep class androidx.** { *; }
+-keep class android.support.** { *; }
+-dontwarn io.flutter.**
+-dontwarn com.google.firebase.**
