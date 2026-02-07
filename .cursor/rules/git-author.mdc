@@ -1,0 +1,43 @@
+---
+description: Git commits must always attribute to the project owner (Miracuves); never use Cursor Agent or machine identity as author.
+alwaysApply: true
+---
+
+# Git author policy
+
+## Rule
+
+All Git operations that create or rewrite commits **must** attribute the commit to the project owner, **never** to "Cursor Agent" or any other tool/machine identity.
+
+## Required identity
+
+- **Name:** Miracuves  
+- **Email:** 104827794+miracuves@users.noreply.github.com  
+
+This is the repository owner's GitHub identity. Commits must show under Miracuves in the GitHub contributors list.
+
+## What you must do
+
+1. **Before the first commit in a session** (if you run any git commit):
+   - Ensure the repo uses this identity. Run:
+     - `git config user.name "Miracuves"`
+     - `git config user.email "104827794+miracuves@users.noreply.github.com"`
+   - Or pass the author explicitly on every commit (see below).
+
+2. **When running `git commit`**:
+   - Always set the author so the commit is attributed to Miracuves. Either:
+     - Rely on the repo config above (after ensuring it is set), or
+     - Pass explicitly:  
+       `git commit --author="Miracuves <104827794+miracuves@users.noreply.github.com>" -m "..."`
+
+3. **When running `git commit --amend`** or any history-rewriting command that can set author/committer:
+   - Use the same identity (e.g. `--reset-author` after setting config, or set `GIT_AUTHOR_NAME`, `GIT_AUTHOR_EMAIL`, `GIT_COMMITTER_NAME`, `GIT_COMMITTER_EMAIL` in the environment for the command).
+
+## What you must not do
+
+- Do **not** let commits be created with author or committer set to "Cursor Agent", "Cursor", or the hostname/machine default (e.g. `user@machine.local`).
+- Do **not** skip setting or verifying Git user identity when you are about to create a commit.
+
+## Summary
+
+Commits in this repository must always show **Miracuves** as the author on GitHub. Configure the repo identity and/or pass `--author` (or equivalent) so that no commit is ever attributed to Cursor Agent or the machine.
