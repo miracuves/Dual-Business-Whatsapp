@@ -111,6 +111,10 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
   String _notificationSound = 'default'; // 'default' or custom sound name
 
   int _syncInterval = 0; // 0 = Continuous, 30, 60, 300
+
+  /// Unread message counts for tab badges (session 2 count synced via SharedPreferences).
+  int _unreadCount1 = 0;
+  int _unreadCount2 = 0;
   
   final WebViewMonitor _webViewMonitor = WebViewMonitor();
   Timer? _backgroundPollTimer;
@@ -128,6 +132,7 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
     _requestPermissions();
     _loadLabels();
     _loadSettings();
+    _loadUnreadCount2(); // Session 2 unread is written by secondary process
     _setupMethodChannel(); // Setup method channel for background service communication
   }
   
@@ -258,6 +263,7 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
       // App came to foreground - stop local polling, JavaScript MutationObserver will handle
       debugPrint("App resumed - stopping local polling, JavaScript monitoring active");
       _stopBackgroundPolling();
+      _loadUnreadCount2(); // Refresh tab 2 badge (written by secondary process)
     }
   }
   
@@ -302,6 +308,18 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
     }
   }
 
+  static const String _unreadCount2Key = 'unread_count_2';
+
+  Future<void> _loadUnreadCount2() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final count = prefs.getInt(_unreadCount2Key) ?? 0;
+      if (mounted) setState(() => _unreadCount2 = count);
+    } catch (e) {
+      debugPrint("Error loading unread count 2: $e");
+    }
+  }
+
   Future<void> _loadSettings() async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -311,7 +329,8 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
       final bool notificationPersist = prefs.getBool('notification_persist') ?? false;
       final String notificationSound = prefs.getString('notification_sound') ?? 'default';
       final int syncInterval = prefs.getInt('sync_interval') ?? 0;
-      
+      final int unread2 = prefs.getInt(_unreadCount2Key) ?? 0;
+
       // If Tab 2 is being disabled and we're on Tab 2, switch to Tab 1 first
       int newIndex = _currentIndex;
       if (!enableTab2 && _currentIndex == 1) {
@@ -328,6 +347,7 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
           _notificationPersist = notificationPersist;
           _notificationSound = notificationSound;
           _syncInterval = syncInterval;
+          _unreadCount2 = unread2;
           _currentIndex = newIndex;
         });
       }
@@ -859,30 +879,27 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
       String title = data;
       String senderName = '';
       String messageText = '';
-      int unreadCount = 1;
-      
+      int unreadCount = 0;
+
       if (messageData != null) {
-        // Extract from JSON
         title = messageData['title']?.toString() ?? data;
         senderName = messageData['senderName']?.toString() ?? '';
         messageText = messageData['messageText']?.toString() ?? '';
-        unreadCount = messageData['unreadCount'] as int? ?? 1;
+        unreadCount = messageData['unreadCount'] as int? ?? 0;
       } else {
-        // Fallback: parse from title string like "(3) WhatsApp"
         final RegExp unreadRegex = RegExp(r'\((\d+)\)');
         final match = unreadRegex.firstMatch(title);
         if (match != null) {
-          unreadCount = int.tryParse(match.group(1) ?? '1') ?? 1;
+          unreadCount = int.tryParse(match.group(1) ?? '0') ?? 0;
         }
       }
-      
-      // Check if there are unread messages
-      final RegExp unreadRegex = RegExp(r'\(\d+\)');
-      if (!unreadRegex.hasMatch(title) && messageData == null) {
-        return; // No unread messages
+
+      // Update tab badge (session 1 only; session 2 is in secondary process)
+      if (tabIndex == 0 && mounted) {
+        setState(() => _unreadCount1 = unreadCount);
       }
-      
-      // Check Settings
+
+      if (unreadCount <= 0) return;
       if (tabIndex == 0 && !_monitorSession1) return;
       if (tabIndex == 1 && !_monitorSession2) return;
 
@@ -915,6 +932,11 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
       if (unreadRegex.hasMatch(data)) {
         if (tabIndex == 0 && !_monitorSession1) return;
         if (tabIndex == 1 && !_monitorSession2) return;
+        if (tabIndex == 0 && mounted) {
+          final match = RegExp(r'\((\d+)\)').firstMatch(data);
+          final n = match != null ? (int.tryParse(match.group(1) ?? '0') ?? 0) : 1;
+          setState(() => _unreadCount1 = n);
+        }
         _showNotification("New Message (${tabIndex == 0 ? _label1 : _label2})", data, tabIndex);
       }
     }
@@ -1096,11 +1118,11 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
             destinations: [
               NavigationDestination(
                 icon: const Icon(Icons.business),
-                label: _label1,
+                label: _unreadCount1 > 0 ? '$_label1 ($_unreadCount1)' : _label1,
               ),
               NavigationDestination(
                 icon: const Icon(Icons.store),
-                label: _label2,
+                label: _unreadCount2 > 0 ? '$_label2 ($_unreadCount2)' : _label2,
               ),
             ],
           )

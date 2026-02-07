@@ -115,8 +115,14 @@ class AppConstants {
                         window.flutter_inappwebview.callHandler('onTitleChanged', lastTitle);
                     }
                 }, 500); // Small delay to ensure DOM is updated
-            } else if (currentUnreadCount === 0) {
+            } else if (currentUnreadCount === 0 && lastUnreadCount !== 0) {
                 lastUnreadCount = 0;
+                window.flutter_inappwebview.callHandler('onTitleChanged', JSON.stringify({
+                    title: document.title,
+                    senderName: '',
+                    messageText: '',
+                    unreadCount: 0
+                }));
             }
         }
     }).observe(

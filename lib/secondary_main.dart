@@ -430,49 +430,42 @@ class _SecondaryDashboardState extends State<SecondaryDashboard> with WidgetsBin
     }
   }
 
+  static const String _unreadCount2Key = 'unread_count_2';
+
   void _handleTitleChange(String data) async {
     try {
-      // Try to parse as JSON (enhanced message data)
       Map<String, dynamic>? messageData;
       try {
         messageData = jsonDecode(data) as Map<String, dynamic>?;
       } catch (e) {
-        // Not JSON, treat as plain title string
         messageData = null;
       }
-      
+
       String title = data;
       String senderName = '';
       String messageText = '';
-      int unreadCount = 1;
-      
+      int unreadCount = 0;
+
       if (messageData != null) {
-        // Extract from JSON
         title = messageData['title']?.toString() ?? data;
         senderName = messageData['senderName']?.toString() ?? '';
         messageText = messageData['messageText']?.toString() ?? '';
-        unreadCount = messageData['unreadCount'] as int? ?? 1;
+        unreadCount = messageData['unreadCount'] as int? ?? 0;
       } else {
-        // Fallback: parse from title string like "(3) WhatsApp"
         final RegExp unreadRegex = RegExp(r'\((\d+)\)');
         final match = unreadRegex.firstMatch(title);
         if (match != null) {
-          unreadCount = int.tryParse(match.group(1) ?? '1') ?? 1;
+          unreadCount = int.tryParse(match.group(1) ?? '0') ?? 0;
         }
       }
-      
-      // Check if there are unread messages
-      final RegExp unreadRegex = RegExp(r'\(\d+\)');
-      if (!unreadRegex.hasMatch(title) && messageData == null) {
-        return; // No unread messages
-      }
-      
+
       final prefs = await SharedPreferences.getInstance();
-      await prefs.reload(); // Critical for multi-process sync
+      await prefs.reload();
+      await prefs.setInt(_unreadCount2Key, unreadCount); // For main app tab badge
+
       final bool monitor = prefs.getBool('monitor_session_2') ?? true;
-      
-      if (!monitor) return;
-      
+      if (unreadCount <= 0 || !monitor) return;
+
       // Build notification with message details
       String notificationTitle;
       String notificationBody;
@@ -498,14 +491,15 @@ class _SecondaryDashboardState extends State<SecondaryDashboard> with WidgetsBin
       _showNotification(notificationTitle, notificationBody);
     } catch (e) {
       debugPrint("Error handling title change in secondary: $e");
-      // Fallback to basic notification
-      final RegExp unreadRegex = RegExp(r'\(\d+\)');
-      if (unreadRegex.hasMatch(data)) {
+      final RegExp unreadRegex = RegExp(r'\((\d+)\)');
+      final match = unreadRegex.firstMatch(data);
+      if (match != null) {
+        final int n = int.tryParse(match.group(1) ?? '0') ?? 0;
         final prefs = await SharedPreferences.getInstance();
         await prefs.reload();
+        await prefs.setInt(_unreadCount2Key, n);
         final bool monitor = prefs.getBool('monitor_session_2') ?? true;
         if (monitor) {
-          // Reload label for fallback too
           await _loadSettings();
           _showNotification("$_label2 Message", data);
         }
