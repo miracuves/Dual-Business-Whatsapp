@@ -11,6 +11,7 @@ import 'package:dual_biz_wa/core/services/background_service.dart';
 import 'package:dual_biz_wa/core/services/webview_monitor.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:dual_biz_wa/secondary_main.dart'; // Import Secondary App
 
 // Global notification plugin instance
@@ -613,6 +614,9 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
     );
   }
 
+  static const String _privacyPolicyUrl =
+      'https://github.com/miracuves/Dual-Business-Whatsapp/blob/main/PRIVACY.md';
+
   void _showAboutDialog() {
     final theme = Theme.of(context);
     showDialog(
@@ -628,6 +632,22 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
             Text('Developed by Miracuves IT Solutions', style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             Text('Version 1.0.0', style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+            const SizedBox(height: 16),
+            InkWell(
+              onTap: () async {
+                final uri = Uri.parse(_privacyPolicyUrl);
+                if (await canLaunchUrl(uri)) {
+                  await launchUrl(uri, mode: LaunchMode.externalApplication);
+                }
+              },
+              child: Text(
+                'Privacy Policy',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.primary,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
           ],
         ),
         actions: [
