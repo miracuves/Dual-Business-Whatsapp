@@ -130,6 +130,15 @@ flutter build apk
 
 ---
 
+## Known limitations
+
+- **Notifications depend on WhatsApp Web’s layout.** Unread detection uses the page title (e.g. `(3) WhatsApp`) and, when possible, the chat list DOM. If WhatsApp Web changes its structure or class names, notification or badge behavior may break until the app’s injected script is updated. Last verified with WhatsApp Web as of the date of the release; if something stops working after a WhatsApp Web update, check for an app update.
+- **Battery and background.** The app uses a foreground service and periodic checks to deliver notifications when in the background. On some devices or OEM power-saving modes, the OS may still restrict background activity. If notifications stop when the app is closed, allow the app to run in the background / disable battery optimization for it (see in-app permission prompts or system settings).
+- **Tested environments.** The app is built and tested on standard Android (API 21+) and has been used on HarmonyOS / devices with MicroG (no Google Play Services required for notifications). Behavior on other forks or heavily customized Android builds may differ.
+- **No official WhatsApp API.** This app is not endorsed by or affiliated with WhatsApp/Meta. It only loads WhatsApp Web in a WebView and does not use any official business or cloud API.
+
+---
+
 ## License and credits
 
 - **Product name:** MCX WhatZ  
