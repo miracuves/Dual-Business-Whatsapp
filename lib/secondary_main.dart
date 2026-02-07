@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert'; // For JSON parsing
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:dual_biz_wa/core/theme/app_theme.dart';
 import 'package:dual_biz_wa/features/webview/widgets/webview_container.dart';
 import 'package:dual_biz_wa/core/services/webview_monitor.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -43,10 +44,9 @@ class SecondaryApp extends StatelessWidget {
     return MaterialApp(
       title: 'MCX WhatZ - Business 2',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFA70D2A)), // Brand Red
-        useMaterial3: true,
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       home: const SecondaryDashboard(),
     );
   }
@@ -515,25 +515,30 @@ class _SecondaryDashboardState extends State<SecondaryDashboard> with WidgetsBin
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    final colorScheme = Theme.of(context).colorScheme;
+    return Scaffold(
         appBar: AppBar(
-            title: Text("MCX WhatZ - $_label2", style: const TextStyle(color: Colors.white)), // Dynamic label
-            backgroundColor: const Color(0xFFA70D2A), // Brand Red
-            iconTheme: const IconThemeData(color: Colors.white),
-            leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                    SystemNavigator.pop();
-                },
+          title: Text('MCX WhatZ - $_label2'),
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
+          leading: Semantics(
+            label: 'Back to main app',
+            button: true,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => SystemNavigator.pop(),
             ),
-            actions: [
-                IconButton(
-                    icon: const Icon(Icons.refresh),
-                    onPressed: () {
-                        _webKey.currentState?.reload();
-                    },
-                )
-            ],
+          ),
+          actions: [
+            Semantics(
+              label: 'Reload page',
+              button: true,
+              child: IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () => _webKey.currentState?.reload(),
+              ),
+            ),
+          ],
         ),
         body: WebViewContainer(
            key: _webKey,

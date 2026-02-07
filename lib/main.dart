@@ -4,6 +4,7 @@ import 'dart:typed_data'; // Required for Int64List
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
+import 'package:dual_biz_wa/core/theme/app_theme.dart';
 import 'package:dual_biz_wa/features/webview/widgets/webview_container.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:dual_biz_wa/core/services/background_service.dart';
@@ -80,10 +81,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MCX WhatZ',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFA70D2A)), // Brand Red
-        useMaterial3: true,
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       home: const MainDashboard(),
     );
   }
@@ -433,6 +433,8 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
   }
 
   void _showSettingsDialog() {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     showDialog(
       context: context,
       builder: (context) {
@@ -440,10 +442,10 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
         bool tempMonitor2 = _monitorSession2;
         bool tempEnableTab2 = _enableTab2;
         int tempInterval = _syncInterval;
-        
+
         bool tempNotificationPersist = _notificationPersist;
         String tempNotificationSound = _notificationSound;
-        
+
         return StatefulBuilder(
             builder: (context, setDialogState) {
                 return AlertDialog(
@@ -451,8 +453,12 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
                     content: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                            const Text("Tabs", style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Tabs', style: theme.textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: colorScheme.primary,
+                            )),
                             SwitchListTile(
                                 title: Text("Enable $_label2"),
                                 subtitle: const Text("Show Business Tab 2 in navigation"),
@@ -460,7 +466,10 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
                                 onChanged: (val) => setDialogState(() => tempEnableTab2 = val),
                             ),
                             const Divider(),
-                            const Text("Notifications", style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Notifications', style: theme.textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: colorScheme.primary,
+                            )),
                             SwitchListTile(
                                 title: Text(_label1),
                                 subtitle: const Text("Receive notifications for Business 1"),
@@ -480,12 +489,17 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
                               Padding(
                                 padding: const EdgeInsets.only(left: 16.0, top: 4.0),
                                 child: Text(
-                                  "Enable Tab 2 to configure notifications",
-                                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                                  'Enable Tab 2 to configure notifications',
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: colorScheme.onSurfaceVariant,
+                                  ),
                                 ),
                               ),
                             const Divider(),
-                            const Text("Notification Options", style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Notification Options', style: theme.textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: colorScheme.primary,
+                            )),
                             SwitchListTile(
                                 title: const Text("Keep Notifications"),
                                 subtitle: const Text("Don't auto-dismiss notifications"),
@@ -493,7 +507,9 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
                                 onChanged: (val) => setDialogState(() => tempNotificationPersist = val),
                             ),
                             const SizedBox(height: 8),
-                            const Text("Notification Sound:", style: TextStyle(fontSize: 12, color: Colors.grey)),
+                            Text('Notification Sound', style: theme.textTheme.bodySmall?.copyWith(
+                              color: colorScheme.onSurfaceVariant,
+                            )),
                             DropdownButton<String>(
                                 value: tempNotificationSound,
                                 isExpanded: true,
@@ -507,9 +523,14 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
                                 },
                             ),
                             const Divider(),
-                            const Text("Sync & Battery", style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Sync & Battery', style: theme.textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: colorScheme.primary,
+                            )),
                             const SizedBox(height: 8),
-                            const Text("Refresh Frequency:", style: TextStyle(fontSize: 12, color: Colors.grey)),
+                            Text('Refresh Frequency', style: theme.textTheme.bodySmall?.copyWith(
+                              color: colorScheme.onSurfaceVariant,
+                            )),
                             DropdownButton<int>(
                                 value: tempInterval,
                                 isExpanded: true,
@@ -573,18 +594,20 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
   }
 
   void _showAboutDialog() {
+    final theme = Theme.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('About'),
-        content: const Column(
+        content: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('MCX WhatZ'),
-            SizedBox(height: 8),
-            Text('Developed by Miracuves IT Solutions', style: TextStyle(fontWeight: FontWeight.bold)),
-            SizedBox(height: 8),
-            Text('Version 1.0.0'),
+            Text('MCX WhatZ', style: theme.textTheme.titleMedium),
+            const SizedBox(height: 8),
+            Text('Developed by Miracuves IT Solutions', style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600)),
+            const SizedBox(height: 8),
+            Text('Version 1.0.0', style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
           ],
         ),
         actions: [
@@ -898,24 +921,25 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
   }
 
   Future<void> _confirmStopService() async {
+    final theme = Theme.of(context);
     final shouldStop = await showDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog(
-            title: const Text('Stop Background Service?'),
-            content: const Text(
-                'This will stop receiving notifications and save battery. You will not receive messages until you open the app again.',
-            ),
-            actions: [
-                TextButton(
-                    onPressed: () => Navigator.pop(context, false),
-                    child: const Text('Cancel'),
-                ),
-                TextButton(
-                    onPressed: () => Navigator.pop(context, true),
-                    child: const Text('Stop & Exit', style: TextStyle(color: Colors.red)),
-                ),
-            ],
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Stop Background Service?'),
+        content: const Text(
+          'This will stop receiving notifications and save battery. You will not receive messages until you open the app again.',
         ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text('Stop & Exit', style: TextStyle(color: theme.colorScheme.error, fontWeight: FontWeight.w600)),
+          ),
+        ],
+      ),
     );
 
     if (shouldStop == true) {
@@ -926,73 +950,81 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MCX WhatZ'), // UPDATED TITLE
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('MCX WhatZ'),
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
         actions: [
-            IconButton(
+            Semantics(
+              label: 'Reload current page',
+              button: true,
+              child: IconButton(
                 icon: const Icon(Icons.refresh),
                 tooltip: 'Reload Page',
                 onPressed: () {
-                    if (_currentIndex == 0) {
-                        _key1.currentState?.reload();
-                    } else {
-                        _key2.currentState?.reload();
-                    }
+                  if (_currentIndex == 0) {
+                    _key1.currentState?.reload();
+                  } else {
+                    _key2.currentState?.reload();
+                  }
                 },
+              ),
             ),
             PopupMenuButton<String>(
+              tooltip: 'Menu',
               onSelected: (value) {
                 if (value == 'rename') {
                   _showRenameDialog();
                 } else if (value == 'stop') {
-                   _confirmStopService();
+                  _confirmStopService();
                 } else if (value == 'about') {
-                   _showAboutDialog();
+                  _showAboutDialog();
                 } else if (value == 'settings') {
-                    _showSettingsDialog();
+                  _showSettingsDialog();
                 }
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'settings',
                     child: Row(
                       children: [
-                        Icon(Icons.settings, color: Colors.blue),
-                        SizedBox(width: 8),
-                        Text('Notification Settings'),
+                        Icon(Icons.settings, color: colorScheme.primary),
+                        const SizedBox(width: 12),
+                        const Text('Notification Settings'),
                       ],
                     ),
                   ),
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'rename',
                     child: Row(
                       children: [
-                        Icon(Icons.edit, color: Colors.blue),
-                        SizedBox(width: 8),
-                        Text('Rename Tabs'),
+                        Icon(Icons.edit, color: colorScheme.primary),
+                        const SizedBox(width: 12),
+                        const Text('Rename Tabs'),
                       ],
                     ),
                   ),
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'stop',
                     child: Row(
                       children: [
-                        Icon(Icons.power_settings_new, color: Colors.red),
-                        SizedBox(width: 8),
-                        Text('Stop Service & Exit'),
+                        Icon(Icons.power_settings_new, color: colorScheme.error),
+                        const SizedBox(width: 12),
+                        const Text('Stop Service & Exit'),
                       ],
                     ),
                   ),
-                   const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'about',
                     child: Row(
                       children: [
-                        Icon(Icons.info_outline, color: Colors.grey),
-                        SizedBox(width: 8),
-                        Text('About'),
+                        Icon(Icons.info_outline, color: colorScheme.onSurfaceVariant),
+                        const SizedBox(width: 12),
+                        const Text('About'),
                       ],
                     ),
                   ),
@@ -1012,21 +1044,37 @@ class _MainDashboardState extends State<MainDashboard> with WidgetsBindingObserv
                   onTitleChanged: (t) => _handleTitleChange(t, 0)
               ),
               Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Tap below to open $_label2", style: const TextStyle(fontSize: 16)),
-                    const SizedBox(height: 16),
-                    ElevatedButton.icon(
-                        onPressed: () {
-                            // Method Channel call to launch SecondaryActivity
-                             const platform = MethodChannel('com.dualbiz.wa/launcher');
-                             platform.invokeMethod('launchSecondary');
-                        },
-                        icon: const Icon(Icons.open_in_new),
-                        label: Text("Open $_label2 Session"),
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Tap below to open $_label2',
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 24),
+                      Semantics(
+                        label: 'Open $_label2 in a separate session',
+                        button: true,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            const platform = MethodChannel('com.dualbiz.wa/launcher');
+                            platform.invokeMethod('launchSecondary');
+                          },
+                          icon: const Icon(Icons.open_in_new, size: 22),
+                          label: Text('Open $_label2 Session'),
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(double.infinity, 52),
+                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
